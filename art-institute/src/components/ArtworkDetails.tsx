@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react'
 import { useDispatch , useSelector } from 'react-redux';
-import { setFavorite, setProducts } from '../redux/actions/productActions';
-import { useNavigate } from "react-router-dom";
+import {setProducts} from '../redux/actions/productActions';
+import { useNavigate} from "react-router-dom";
 import Loader from './Loader'
 
 
@@ -12,28 +12,32 @@ function ArtworkDetails() {
     const [loading, setLoading] = useState<boolean>(false);
     const [searchedItems, setSearched] = useState<boolean>(false);
     const [searchedResults, setSearchedResult] = useState<any>();
-    const [textToSearch, setText] = useState<string>('');
+    const [favoriteItems, setFavoriteItems] = useState<[]>([]);
 
+    const [textToSearch, setText] = useState<string>('');
     const [currentPage, setCurrentpage] = useState<number>(1);
     const navigate = useNavigate()
 
 
     useEffect(() => {
-        console.log(products)
         getArtist()
-        
+
     },[currentPage]);
+
+    useEffect(() => {
+        console.log(favoriteItems,'fav items')
+    },[favoriteItems]);
 
 
 
 
     const getArtist = async() => {
         setLoading(true);
-        const response:any  = await axios 
+        const response:any  = await axios
         .get(`https://api.artic.edu/api/v1/artworks?page=${currentPage}&limit=25`)
         .then((res:any)=>{
             dispatch(setProducts(res.data.data))
-            console.log(products.allProducts,'products')
+             console.log(products,'products')
             setLoading(false)
         })
         .catch((err:any) => {
@@ -48,7 +52,7 @@ function ArtworkDetails() {
 
     const search = async (keyword:string) => {
         setLoading(true);
-        const response:any  = await axios 
+        const response:any  = await axios
         .get(`https://api.artic.edu/api/v1/artworks/search?${keyword}`)
         .then((res:any)=>{
             console.log(res.data.data,'search result')
@@ -65,20 +69,16 @@ function ArtworkDetails() {
     }
 
     const addToFavorite = (item:any) => {
-        let itemsToAdd = []
-        itemsToAdd.push(item)
-        dispatch(setFavorite(itemsToAdd))
-        console.log(item,'asd')
-        // let itemsToAdd = []
-        // itemsToAdd.push(item)
-        // console.log(itemsToAdd,'item to add')
+        let newArray : any = [...favoriteItems]
+        newArray.push(item)
+        setFavoriteItems(newArray)
     }
 
 
   return (
       <>
       {
-          loading ? 
+          loading ?
           (
               <Loader/>
           )
@@ -89,18 +89,20 @@ function ArtworkDetails() {
                     <input onChange={(e)=>setText(e.target.value)} type="text" />
                     <button onClick={()=> search(textToSearch)} >Search</button>
                 </div>
-                <div>
+                <div className='artworks-container'>
                     {
                          searchedItems ?
                          (
                             Object.keys(searchedResults).map((i) => (
-                                <div>
+                                <div className='artworks-box'>
                                     <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
                                         <div key={i}>{products.allArtworks.products[i].title}</div>
-                                        <img src="" alt=""/>
+                                        <img className='thumbnail-img' src={products.allArtworks.products[i].thumbnail.lqip} alt=""/>
                                     </div>
-                                     <button >Add to favorit</button>
-                                     <button>Remove from favorit</button>
+                                    <div>
+                                         <button>Add to favorit</button>
+                                         <button>Remove from favorit</button>
+                                    </div>
                                 </div>
                             ))
                          )
@@ -110,7 +112,7 @@ function ArtworkDetails() {
                                 <div>
                                     <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
                                          <div key={i}>{products.allArtworks.products[i].title}</div>
-                                         <img src="" alt=""/>
+                                         <img className='thumbnail-img' src="" alt=""/>
                                     </div>
                                     <button onClick={()=> addToFavorite(products.allArtworks.products[i])}>Add to favorit</button>
                                     <button>Remove from favorit</button>
@@ -120,7 +122,7 @@ function ArtworkDetails() {
                     }
                 </div>
                 {
-                    searchedItems ? 
+                    searchedItems ?
                     (
                         <button onClick={()=> setSearched(false)}>Back</button>
                     )
@@ -136,7 +138,7 @@ function ArtworkDetails() {
           )
       }
       </>
-   
+
   );
 }
 

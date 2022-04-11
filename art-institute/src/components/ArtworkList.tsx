@@ -1,11 +1,15 @@
 import {useEffect, useState} from 'react'
 import { useLocation } from 'react-router';
+import { useDispatch , useSelector } from 'react-redux';
+import { setFavorite, setProducts } from '../redux/actions/productActions';
 import axios from 'axios';
+
 
 
 function ArtworkList() {
 
     const location = useLocation()
+    const dispatch = useDispatch()
     const [details,setDetails] = useState<any>(null)
     
 
@@ -26,6 +30,14 @@ function ArtworkList() {
         })
     }
 
+    const addToFavorite = (item:any) => {
+        let itemsToAdd = []
+        itemsToAdd.push(item)
+        dispatch(setFavorite(itemsToAdd))
+        console.log(item,'asd')
+    }
+
+
   return (
     <div>
         {
@@ -33,6 +45,7 @@ function ArtworkList() {
             <div>
                 <div>{details.artist_display}</div>
                 <img className='detail-image' src={details.thumbnail.lqip}></img>
+                <button onClick={()=> addToFavorite(details)}>Add to favorites</button>
             </div>
         }
     </div>
