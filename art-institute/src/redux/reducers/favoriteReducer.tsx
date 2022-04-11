@@ -8,7 +8,7 @@ const initialState = {
 export const favoriteReducer = (state = initialState, {type, payload}:any) => {
     switch(type) {
         case ActionTypes.SET_FAVORITE:
-            return {...state, products:payload};
+            return {...state, favorites:payload};
         default:
             return state;
     }

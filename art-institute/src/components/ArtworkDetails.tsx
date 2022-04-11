@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react'
 import { useDispatch , useSelector } from 'react-redux';
 import { setFavorite, setProducts } from '../redux/actions/productActions';
 import { useNavigate } from "react-router-dom";
+import Loader from './Loader'
 
 
 function ArtworkDetails() {
@@ -18,6 +19,7 @@ function ArtworkDetails() {
 
 
     useEffect(() => {
+        console.log(products)
         getArtist()
         
     },[currentPage]);
@@ -63,8 +65,10 @@ function ArtworkDetails() {
     }
 
     const addToFavorite = (item:any) => {
-        dispatch(setFavorite(item))
-
+        let itemsToAdd = []
+        itemsToAdd.push(item)
+        dispatch(setFavorite(itemsToAdd))
+        console.log(item,'asd')
         // let itemsToAdd = []
         // itemsToAdd.push(item)
         // console.log(itemsToAdd,'item to add')
@@ -76,7 +80,7 @@ function ArtworkDetails() {
       {
           loading ? 
           (
-              <div>Loading...</div>
+              <Loader/>
           )
           :
           (
@@ -91,8 +95,8 @@ function ArtworkDetails() {
                          (
                             Object.keys(searchedResults).map((i) => (
                                 <div>
-                                    <div onClick={() => goToDetails(products.allProducts.products[i].id)}>
-                                        <div key={i}>{products.allProducts.products[i].title}</div>
+                                    <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
+                                        <div key={i}>{products.allArtworks.products[i].title}</div>
                                         <img src="" alt=""/>
                                     </div>
                                      <button >Add to favorit</button>
@@ -102,13 +106,13 @@ function ArtworkDetails() {
                          )
                          :
                          (
-                            Object.keys(products.allProducts.products).map((i) => (
+                            Object.keys(products.allArtworks.products).map((i) => (
                                 <div>
-                                    <div onClick={() => goToDetails(products.allProducts.products[i].id)}>
-                                         <div key={i}>{products.allProducts.products[i].title}</div>
+                                    <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
+                                         <div key={i}>{products.allArtworks.products[i].title}</div>
                                          <img src="" alt=""/>
                                     </div>
-                                    <button onClick={()=> addToFavorite(products.allProducts.products[i])}>Add to favorit</button>
+                                    <button onClick={()=> addToFavorite(products.allArtworks.products[i])}>Add to favorit</button>
                                     <button>Remove from favorit</button>
                                 </div>
                             ))

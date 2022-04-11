@@ -13,9 +13,10 @@ export const selectedProduct = (product:any) => {
         payload: product,
     };
 };
-export const setFavorite = (product:any) => {
+export const setFavorite = (favorites:any) => {
+    console.log(favorites,'payload')
     return{
-        type:ActionTypes.SELECTED_PRODUCTS,
-        payload: product,
+        type:ActionTypes.SET_FAVORITE,
+        payload: favorites,
     };
 };

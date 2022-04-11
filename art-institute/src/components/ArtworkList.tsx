@@ -15,18 +15,14 @@ function ArtworkList() {
 
 
     const getDetails = async() => {
-        // setLoading(true);
         const response:any  = await axios 
         .get(`https://api.artic.edu/api/v1/artworks/${location.state}`)
         .then((res:any)=>{
-            // dispatch(setProducts(res.data.data))
-            // setLoading(false)
             console.log(res.data.data,'response')
             setDetails(res.data.data)
         })
         .catch((err:any) => {
             console.log(err,'error')
-            // setLoading(false)
         })
     }
 
