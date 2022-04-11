@@ -13,34 +13,50 @@ function ArtworkDetails() {
 
 
     useEffect(() => {
-        setLoading(true);
         getArtist()
         
     },[curresntPage]);
 
 
     const getArtist = async() => {
+        setLoading(true);
         const response:any  = await axios 
         .get(`https://api.artic.edu/api/v1/artworks?page=${curresntPage}&limit=25`)
         .then((res:any)=>{
             dispatch(setProducts(res.data.data))
             console.log(products.allProducts.products[10].thumbnail,'products')
+            setLoading(false)
         })
         .catch((err:any) => {
             console.log(err,'error')
+            setLoading(false)
         })
     }
   return (
-    <div>
-        {Object.keys(products.allProducts.products).map((i) => (
+      <>
+      {
+          loading ? 
+          (
+              <div>Loading...</div>
+          )
+          :
+          (
             <div>
-                 <div key={i}>{products.allProducts.products[i].title}</div>
-                 <img src="" alt=""/>
-            </div>
-        ))}
-        <button onClick={()=> setCurrentpage(curresntPage+1)}>Previus</button>
-        <button onClick={()=> setCurrentpage(curresntPage+1)}>Next</button>
-    </div>
+            {Object.keys(products.allProducts.products).map((i) => (
+                <div>
+                     <div key={i}>{products.allProducts.products[i].title}</div>
+                     <img src="" alt=""/>
+                </div>
+            ))}
+            <button onClick={()=> setCurrentpage(curresntPage+1)}>Previus</button>
+            <button onClick={()=> setCurrentpage(curresntPage+1)}>Next</button>
+        </div>
+
+          )
+
+      }
+      </>
+   
   );
 }
 
