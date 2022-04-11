@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react'
 import { useDispatch , useSelector } from 'react-redux';
-import { setProducts } from '../redux/actions/productActions';
+import { setFavorite, setProducts } from '../redux/actions/productActions';
 import { useNavigate } from "react-router-dom";
 
 
@@ -47,7 +47,7 @@ function ArtworkDetails() {
     const search = async (keyword:string) => {
         setLoading(true);
         const response:any  = await axios 
-        .get(`https://api.artic.edu/api/v1/artworks/search?q=${keyword}`)
+        .get(`https://api.artic.edu/api/v1/artworks/search?${keyword}`)
         .then((res:any)=>{
             console.log(res.data.data,'search result')
             setSearchedResult(res.data.data)
@@ -60,6 +60,14 @@ function ArtworkDetails() {
             setSearched(false)
         })
 
+    }
+
+    const addToFavorite = (item:any) => {
+        dispatch(setFavorite(item))
+
+        // let itemsToAdd = []
+        // itemsToAdd.push(item)
+        // console.log(itemsToAdd,'item to add')
     }
 
 
@@ -82,25 +90,44 @@ function ArtworkDetails() {
                          searchedItems ?
                          (
                             Object.keys(searchedResults).map((i) => (
-                                <div onClick={() => goToDetails(products.allProducts.products[i].id)}>
-                                     <div key={i}>{products.allProducts.products[i].title}</div>
-                                     <img src="" alt=""/>
+                                <div>
+                                    <div onClick={() => goToDetails(products.allProducts.products[i].id)}>
+                                        <div key={i}>{products.allProducts.products[i].title}</div>
+                                        <img src="" alt=""/>
+                                    </div>
+                                     <button >Add to favorit</button>
+                                     <button>Remove from favorit</button>
                                 </div>
                             ))
                          )
                          :
                          (
                             Object.keys(products.allProducts.products).map((i) => (
-                                <div onClick={() => goToDetails(products.allProducts.products[i].id)}>
-                                     <div key={i}>{products.allProducts.products[i].title}</div>
-                                     <img src="" alt=""/>
+                                <div>
+                                    <div onClick={() => goToDetails(products.allProducts.products[i].id)}>
+                                         <div key={i}>{products.allProducts.products[i].title}</div>
+                                         <img src="" alt=""/>
+                                    </div>
+                                    <button onClick={()=> addToFavorite(products.allProducts.products[i])}>Add to favorit</button>
+                                    <button>Remove from favorit</button>
                                 </div>
                             ))
                          )
                     }
                 </div>
-                <button onClick={()=> setCurrentpage(currentPage+1)}>Previus</button>
-                <button onClick={()=> setCurrentpage(currentPage+1)}>Next</button>
+                {
+                    searchedItems ? 
+                    (
+                        <button onClick={()=> setSearched(false)}>Back</button>
+                    )
+                    :
+                    (
+                        <>
+                         <button onClick={()=> setCurrentpage(currentPage+1)}>Previus</button>
+                         <button onClick={()=> setCurrentpage(currentPage+1)}>Next</button>
+                        </>
+                    )
+                }
             </div>
           )
       }

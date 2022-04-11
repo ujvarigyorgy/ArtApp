@@ -13,3 +13,9 @@ export const selectedProduct = (product:any) => {
         payload: product,
     };
 };
+export const setFavorite = (product:any) => {
+    return{
+        type:ActionTypes.SELECTED_PRODUCTS,
+        payload: product,
+    };
+};
