@@ -61,8 +61,9 @@ function ArtworkList() {
             details &&
             <div>
                 <div>{details.artist_display}</div>
-                <img className='detail-image' src={img}></img>
-                {/* <div>{img}</div> */}
+                <img
+                    src={`https://www.artic.edu/iiif/2/${imgid}/full/843,/0/default.jpg`}
+                    alt='' />
                 <button onClick={()=> addToFavorite(details)}>Add to favorites</button>
             </div>
         }

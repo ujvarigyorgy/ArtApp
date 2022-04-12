@@ -24,7 +24,7 @@ useEffect(() => {
                 <motion.div initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:2}} className='artworks-box'>
                       <div>
                             <div key={i}>{state.allArtworks.favorites[i].title}</div>
-                            <img className='thumbnail-img' src={state.allArtworks.favorites[i].thumbnail.lqip} alt=""/>
+                            <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${state.allArtworks.products[i].image_id}/full/843,/0/default.jpg`} alt='' />
                             <button>Remove from favorite</button>
                      </div>
                 </motion.div>

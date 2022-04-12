@@ -22,7 +22,6 @@ function ArtworkDetails() {
 
     useEffect(() => {
         getArtist()
-
     },[currentPage]);
 
     const getArtist = async() => {
@@ -122,7 +121,7 @@ function ArtworkDetails() {
                     )
                 }
                 <div className='artworks-container'>
-                    {
+                    { 
                          searchedItems ?
                          (
                             Object.keys(searchedResults).map((i) => (
@@ -147,10 +146,7 @@ function ArtworkDetails() {
                                     <div key={i}>
                                         <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
                                              <div key={i}>{products.allArtworks.products[i].title}</div>
-                                             {
-                                                 products.allArtworks.products[i].thumbnail.lqip &&
-                                                <img className='thumbnail-img' src={products.allArtworks.products[i].thumbnail.lqip ? products.allArtworks.products[i].thumbnail.lqip : ''} alt=""/>
-                                             }
+                                             <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${products.allArtworks.products[i].image_id}/full/843,/0/default.jpg`} alt='' />
                                         </div>
                                         <div>
                                             <button onClick={()=> addToFavorite(products.allArtworks.products[i])}>Add to favorit</button>

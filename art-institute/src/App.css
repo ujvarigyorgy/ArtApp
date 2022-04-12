@@ -37,6 +37,7 @@
 .App{
   display: flex;
   justify-content: center;
+  background-color: #9ea4a9;
 }
 
 .artworks-container{
@@ -45,11 +46,13 @@
   justify-content: center;
   flex-wrap: wrap;
 }
-.thumbnail-img{
-  width: 300px;
-  height: 300px;
+.thumbnail-img:hover{
+  /* width: 400px;
+  
+  height: 300px; */
   object-fit: cover;
 }
+
 .artworks-box{
   margin: 20px;
 }
