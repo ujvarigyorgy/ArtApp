@@ -140,22 +140,26 @@ function ArtworkDetails() {
                          )
                          :
                          (
-                           
-                            Object.keys(products.allArtworks.products).map((i) =>(
-                                <div key={i}>
-                                    <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
-                                         <div key={i}>{products.allArtworks.products[i].title}</div>
-                                         {
-                                             products.allArtworks.products[i].thumbnail.lqip &&
-                                            <img className='thumbnail-img' src={products.allArtworks.products[i].thumbnail.lqip ? products.allArtworks.products[i].thumbnail.lqip : ''} alt=""/>
-                                         }
+                             products &&
+                             <>
+                             {
+                                  Object.keys(products.allArtworks.products).map((i) =>(
+                                    <div key={i}>
+                                        <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
+                                             <div key={i}>{products.allArtworks.products[i].title}</div>
+                                             {
+                                                 products.allArtworks.products[i].thumbnail.lqip &&
+                                                <img className='thumbnail-img' src={products.allArtworks.products[i].thumbnail.lqip ? products.allArtworks.products[i].thumbnail.lqip : ''} alt=""/>
+                                             }
+                                        </div>
+                                        <div>
+                                            <button onClick={()=> addToFavorite(products.allArtworks.products[i])}>Add to favorit</button>
+                                            <button onClick={()=> removeFromFavorite(products.allArtworks.products[i])}>Remove from favorit</button>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <button onClick={()=> addToFavorite(products.allArtworks.products[i])}>Add to favorit</button>
-                                        <button onClick={()=> removeFromFavorite(products.allArtworks.products[i])}>Remove from favorit</button>
-                                    </div>
-                                </div>
-                            ))
+                                ))
+                             }
+                             </>
                          )
                     }
                 </div>
