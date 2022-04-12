@@ -2,12 +2,11 @@ import {useEffect, useState} from 'react'
 import { useLocation } from 'react-router';
 import { useDispatch , useSelector } from 'react-redux';
 import axios from 'axios';
-
-
+import {setFavorite} from '../redux/actions/favoriteActions';
 
 
 function ArtworkList() {
-
+    const state:any = useSelector((state) => state)
     const location = useLocation()
     const dispatch = useDispatch()
     const [details,setDetails] = useState<any>(null)
@@ -30,7 +29,6 @@ function ArtworkList() {
             console.log(res.data.data.image_id,'response')
             setDetails(res.data.data)
             setImgId(res.data.data.image_id)
-           
                 axios .get(`https://www.artic.edu/iiif/2/${res.data.data.image_id}/full/843,/0/default.jpg`)
                 .then((res:any)=>{
                     console.log(res.data,'response  iiiim')
@@ -47,10 +45,12 @@ function ArtworkList() {
     }
 
     const addToFavorite = (item:any) => {
-        let itemsToAdd = []
-        itemsToAdd.push(item)
-        // dispatch(setFavorite(itemsToAdd))
-        console.log(item,'asd')
+        console.log(details,'haaalo')
+        // console.log(state.allArtworks.favorites,'faaaav')
+        let newArray : any = state.allArtworks.favorites
+        newArray.push(item)
+        dispatch(setFavorite(newArray))
+        console.log(newArray,'asd')
     }
 
 
@@ -63,7 +63,6 @@ function ArtworkList() {
                 <div>{details.artist_display}</div>
                 <img className='detail-image' src={img}></img>
                 {/* <div>{img}</div> */}
-                <a href={img}>link text</a>
                 <button onClick={()=> addToFavorite(details)}>Add to favorites</button>
             </div>
         }

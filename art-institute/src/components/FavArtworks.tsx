@@ -1,7 +1,6 @@
 import { useDispatch , useSelector } from 'react-redux';
 import {useEffect, useState} from 'react'
-
-
+import { motion } from "framer-motion"
 
 function FavArtworks() {
 
@@ -20,20 +19,17 @@ useEffect(() => {
 
     return (
       <div>
-          <button onClick={() => console.log(state.allArtworks.favorites,'fav')}>console</button>
-          
            {
                Object.keys(state.allArtworks.favorites).map((i) => (
-                <div>
+                <motion.div initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:2}} className='artworks-box'>
                       <div>
                             <div key={i}>{state.allArtworks.favorites[i].title}</div>
-                            <img src={state.allArtworks.favorites[i].thumbnail.lqip} alt=""/>
+                            <img className='thumbnail-img' src={state.allArtworks.favorites[i].thumbnail.lqip} alt=""/>
                             <button>Remove from favorite</button>
                      </div>
-                </div>
+                </motion.div>
             ))
           } 
-       
       </div>
     );
   }

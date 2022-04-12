@@ -5,6 +5,7 @@ import {setProducts} from '../redux/actions/productActions';
 import {setFavorite} from '../redux/actions/favoriteActions';
 import { useNavigate} from "react-router-dom";
 import Loader from './Loader'
+import { motion } from "framer-motion"
 
 
 function ArtworkDetails() {
@@ -23,14 +24,6 @@ function ArtworkDetails() {
         getArtist()
 
     },[currentPage]);
-
-    // useEffect(() => {
-    //     // console.log(favoriteItems,'fav items')
-
-    // },[favoriteItems]);
-
-
-
 
     const getArtist = async() => {
         setLoading(true);
@@ -75,15 +68,28 @@ function ArtworkDetails() {
 
     const addToFavorite = (item:any) => {
         let newArray : any = [...favoriteItems]
-        newArray.push(item)
-        setFavoriteItems(newArray)
-        dispatch(setFavorite(newArray))
+        if(!newArray.includes(item)){
+            newArray.push(item)
+            setFavoriteItems(newArray)
+            dispatch(setFavorite(newArray))
+        }
+      
 
     }
     const removeFromFavorite = (item:any) => {
         let newArray : any = [...favoriteItems]
-        newArray.push(item)
-        setFavoriteItems(newArray)
+        console.log(item.id,'item')
+        if(newArray.includes(item)){
+            for (var i = 0; i < newArray.length; i++) {
+                if (newArray[i].id === item.id) {
+                    console.log(newArray[i],'objjj')
+                    console.log(i,'talas')
+                    newArray.splice(i, 1);
+                }
+            }
+                dispatch(setFavorite(newArray))
+
+        }
     }
 
 
@@ -120,7 +126,7 @@ function ArtworkDetails() {
                          searchedItems ?
                          (
                             Object.keys(searchedResults).map((i) => (
-                                <div key={i} className='artworks-box'>
+                                <motion.div initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:2}}  key={i} className='artworks-box'>
                                     <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
                                         <div key={i}>{products.allArtworks.products[i].title}</div>
                                         <img className='thumbnail-img' src={products.allArtworks.products[i].thumbnail.lqip} alt=""/>
@@ -129,7 +135,7 @@ function ArtworkDetails() {
                                          <button>Add to favorit</button>
                                          <button onClick={()=> console.log(products,'products')}>Remove from favorit</button>
                                     </div>
-                                </div>
+                                </motion.div>
                             ))
                          )
                          :
@@ -146,7 +152,7 @@ function ArtworkDetails() {
                                     </div>
                                     <div>
                                         <button onClick={()=> addToFavorite(products.allArtworks.products[i])}>Add to favorit</button>
-                                        <button onClick={()=> console.log(products,'products')}>Remove from favorit</button>
+                                        <button onClick={()=> removeFromFavorite(products.allArtworks.products[i])}>Remove from favorit</button>
                                     </div>
                                 </div>
                             ))
