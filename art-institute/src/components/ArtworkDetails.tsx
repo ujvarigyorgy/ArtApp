@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react'
 import { useDispatch , useSelector } from 'react-redux';
-import {setProducts} from '../redux/actions/productActions';
+import {setProducts,setFavorite} from '../redux/actions/productActions';
 import { useNavigate} from "react-router-dom";
 import Loader from './Loader'
 
@@ -13,7 +13,6 @@ function ArtworkDetails() {
     const [searchedItems, setSearched] = useState<boolean>(false);
     const [searchedResults, setSearchedResult] = useState<any>();
     const [favoriteItems, setFavoriteItems] = useState<[]>([]);
-
     const [textToSearch, setText] = useState<string>('');
     const [currentPage, setCurrentpage] = useState<number>(1);
     const navigate = useNavigate()
@@ -25,7 +24,9 @@ function ArtworkDetails() {
     },[currentPage]);
 
     useEffect(() => {
-        console.log(favoriteItems,'fav items')
+        // console.log(favoriteItems,'fav items')
+        dispatch(setFavorite(favoriteItems))
+
     },[favoriteItems]);
 
 
@@ -73,10 +74,15 @@ function ArtworkDetails() {
         newArray.push(item)
         setFavoriteItems(newArray)
     }
+    const removeFromFavorite = (item:any) => {
+        let newArray : any = [...favoriteItems]
+        newArray.push(item)
+        setFavoriteItems(newArray)
+    }
 
 
   return (
-      <>
+      <div className='artwork-list-container'>
       {
           loading ?
           (
@@ -88,38 +94,6 @@ function ArtworkDetails() {
                 <div>
                     <input onChange={(e)=>setText(e.target.value)} type="text" />
                     <button onClick={()=> search(textToSearch)} >Search</button>
-                </div>
-                <div className='artworks-container'>
-                    {
-                         searchedItems ?
-                         (
-                            Object.keys(searchedResults).map((i) => (
-                                <div className='artworks-box'>
-                                    <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
-                                        <div key={i}>{products.allArtworks.products[i].title}</div>
-                                        <img className='thumbnail-img' src={products.allArtworks.products[i].thumbnail.lqip} alt=""/>
-                                    </div>
-                                    <div>
-                                         <button>Add to favorit</button>
-                                         <button>Remove from favorit</button>
-                                    </div>
-                                </div>
-                            ))
-                         )
-                         :
-                         (
-                            Object.keys(products.allArtworks.products).map((i) => (
-                                <div>
-                                    <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
-                                         <div key={i}>{products.allArtworks.products[i].title}</div>
-                                         <img className='thumbnail-img' src="" alt=""/>
-                                    </div>
-                                    <button onClick={()=> addToFavorite(products.allArtworks.products[i])}>Add to favorit</button>
-                                    <button>Remove from favorit</button>
-                                </div>
-                            ))
-                         )
-                    }
                 </div>
                 {
                     searchedItems ?
@@ -134,10 +108,49 @@ function ArtworkDetails() {
                         </>
                     )
                 }
+                <div className='artworks-container'>
+                    {
+                         searchedItems ?
+                         (
+                            Object.keys(searchedResults).map((i) => (
+                                <div key={i} className='artworks-box'>
+                                    <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
+                                        <div key={i}>{products.allArtworks.products[i].title}</div>
+                                        <img className='thumbnail-img' src={products.allArtworks.products[i].thumbnail.lqip} alt=""/>
+                                    </div>
+                                    <div>
+                                         <button>Add to favorit</button>
+                                         <button onClick={()=> console.log(products,'products')}>Remove from favorit</button>
+                                    </div>
+                                </div>
+                            ))
+                         )
+                         :
+                         (
+                           
+                            Object.keys(products.allArtworks.products).map((i) =>(
+                                <div key={i}>
+                                    <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
+                                         <div key={i}>{products.allArtworks.products[i].title}</div>
+                                         {
+                                             products.allArtworks.products[i].thumbnail.lqip &&
+                                            <img className='thumbnail-img' src={products.allArtworks.products[i].thumbnail.lqip ? products.allArtworks.products[i].thumbnail.lqip : ''} alt=""/>
+                                         }
+                                    </div>
+                                    <div>
+                                        <button onClick={()=> addToFavorite(products.allArtworks.products[i])}>Add to favorit</button>
+                                        <button onClick={()=> console.log(products,'products')}>Remove from favorit</button>
+                                    </div>
+                                </div>
+                            ))
+                         )
+                    }
+                </div>
+               
             </div>
           )
       }
-      </>
+      </div>
 
   );
 }

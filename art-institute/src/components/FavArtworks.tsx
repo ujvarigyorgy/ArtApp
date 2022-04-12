@@ -7,20 +7,21 @@ import {useEffect, useState} from 'react'
 function FavArtworks() {
 
 // const favorites:any = useSelector((state) => state)
-const products:any = useSelector((state) => state)
+const favorites:any = useSelector((state) => state)
 
 const dispatch = useDispatch()
 
 useEffect(() => {
     // console.log(favorites,'favorites')   
-    console.log(products,'favorites')    
 
 },[]);
 
 
 
+
     return (
       <div>
+          <button onClick={() => console.log(favorites,'fav')}>console</button>
           fav
           {/* {
                Object.keys(favorites.favoriteArtworks.favorites).map((i) => (

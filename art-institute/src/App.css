@@ -38,14 +38,17 @@
   display: flex;
   justify-content: center;
 }
+
 .artworks-container{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   flex-wrap: wrap;
 }
 .thumbnail-img{
   width: 300px;
   height: 300px;
+  object-fit: cover;
 }
 .artworks-box{
   margin: 20px;
