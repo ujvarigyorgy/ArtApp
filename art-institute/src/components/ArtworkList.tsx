@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react'
 import { useLocation } from 'react-router';
 import { useDispatch , useSelector } from 'react-redux';
-import { setFavorite, setProducts } from '../redux/actions/productActions';
 import axios from 'axios';
 
 
@@ -50,7 +49,7 @@ function ArtworkList() {
     const addToFavorite = (item:any) => {
         let itemsToAdd = []
         itemsToAdd.push(item)
-        dispatch(setFavorite(itemsToAdd))
+        // dispatch(setFavorite(itemsToAdd))
         console.log(item,'asd')
     }
 

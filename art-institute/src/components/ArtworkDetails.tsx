@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react'
 import { useDispatch , useSelector } from 'react-redux';
-import {setProducts,setFavorite} from '../redux/actions/productActions';
+import {setProducts} from '../redux/actions/productActions';
+import {setFavorite} from '../redux/actions/favoriteActions';
 import { useNavigate} from "react-router-dom";
 import Loader from './Loader'
 
@@ -23,11 +24,10 @@ function ArtworkDetails() {
 
     },[currentPage]);
 
-    useEffect(() => {
-        // console.log(favoriteItems,'fav items')
-        dispatch(setFavorite(favoriteItems))
+    // useEffect(() => {
+    //     // console.log(favoriteItems,'fav items')
 
-    },[favoriteItems]);
+    // },[favoriteItems]);
 
 
 
@@ -49,6 +49,10 @@ function ArtworkDetails() {
 
     const goToDetails = (id:number) => {
         navigate(`/details/:${id}`,{state:id})
+    }
+
+    const goToFavorite = () => {
+        navigate('/favorite')
     }
 
     const search = async (keyword:string) => {
@@ -73,6 +77,8 @@ function ArtworkDetails() {
         let newArray : any = [...favoriteItems]
         newArray.push(item)
         setFavoriteItems(newArray)
+        dispatch(setFavorite(newArray))
+
     }
     const removeFromFavorite = (item:any) => {
         let newArray : any = [...favoriteItems]
@@ -91,6 +97,7 @@ function ArtworkDetails() {
           :
           (
             <div>
+                <button onClick={()=> goToFavorite()}>Favorite artworks</button>
                 <div>
                     <input onChange={(e)=>setText(e.target.value)} type="text" />
                     <button onClick={()=> search(textToSearch)} >Search</button>

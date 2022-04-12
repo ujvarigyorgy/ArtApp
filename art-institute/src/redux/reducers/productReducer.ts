@@ -2,7 +2,7 @@ import { ActionTypes } from "../constants/action-types"
 
 const initialState = {
     products:[],
-    favorites:[]
+    favorites:[],
 
 }
 
@@ -10,21 +10,14 @@ const initialState = {
 export const productReducer = (state = initialState, {type, payload}:any) => {
     switch(type) {
         case ActionTypes.SET_PRODUCTS:
-            console.log(state,'state reducer')
+            console.log(state,'product reducer')
             return {...state, products:payload};
-        default:
-            return state;
-    }
-
-}
-
-export const favoriteReducer = (state = initialState, {type, payload}:any) => {
-    switch(type) {
         case ActionTypes.SET_FAVORITE:
-            console.log(state,'state')
+            console.log(state,'favorite reducer')
             return {...state, favorites:payload};
         default:
             return state;
     }
 
 }
+
