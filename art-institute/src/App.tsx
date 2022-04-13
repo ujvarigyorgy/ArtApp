@@ -4,6 +4,7 @@ import ArtworkDetails from './components/ArtworkDetails';
 import ArtworkList from './components/ArtworkList';
 import FavArtworks from './components/FavArtworks';
 import Header from './components/Header';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { motion } from "framer-motion"
 
@@ -20,8 +21,8 @@ function App() {
        <BrowserRouter>
         <Header/>
           <Routes>
-            <Route path="/" element={<ArtworkDetails/>} />
-            <Route path="/details/:id" element={<ArtworkList/>} />
+            <Route path="/" element={<ArtworkList/>} />
+            <Route path="/details/:id" element={<ArtworkDetails/>} />
             <Route path="/favorite" element={<FavArtworks/>} />
           </Routes>
       </BrowserRouter>

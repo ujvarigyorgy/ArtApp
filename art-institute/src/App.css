@@ -21,6 +21,17 @@
   border-bottom-color:#fff ;
   animation-duration: 2.5s;
 }
+.navigation-button-container{
+  position:relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.search-bar-container{
+  margin:50px 0 25px;
+  display: flex;
+  gap:25px;
+}
 
 @keyframes rotate {
   0%{
@@ -37,22 +48,44 @@
 .App{
   display: flex;
   justify-content: center;
-  background-color: #9ea4a9;
+  height: 100%;
 }
-
+.fav-button-container{
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+.nav-menu{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap:150px;
+  position: fixed;
+  text-decoration: none !important;
+}
+.detail-container{
+  display: flex;
+  flex-direction: row;
+  gap:50px;
+}
+.details-info-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 25px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.art-title{
+  margin-top: 25px;
+  font-size: 25px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 .artworks-container{
   display: flex;
   flex-direction: column;
   justify-content: center;
   flex-wrap: wrap;
 }
-.thumbnail-img:hover{
-  /* width: 400px;
-  
-  height: 300px; */
-  object-fit: cover;
-}
-
 .artworks-box{
   margin: 20px;
 }

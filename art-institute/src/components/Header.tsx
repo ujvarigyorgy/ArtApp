@@ -1,6 +1,4 @@
-import { useNavigate} from "react-router-dom";
-
-
+import { useNavigate, Link} from "react-router-dom";
 
 
 const Header = () => {
@@ -14,9 +12,9 @@ const Header = () => {
         navigate('/favorite')
     }
     return (
-        <div>
-           <button onClick={()=> goToFavorite()}>Favorite</button>
-           <button onClick={()=> goHome()}>Home</button>
+        <div className="nav-menu">
+            <Link style={{ textDecoration: 'none',color:"black" }} to="/favorite">Favorite Artworks</Link>
+            <Link style={{ textDecoration: 'none', color:"black" }} to="/">Home</Link>
         </div>
     );
   };

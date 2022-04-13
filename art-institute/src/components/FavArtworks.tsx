@@ -25,7 +25,7 @@ useEffect(() => {
                       <div>
                             <div key={i}>{state.allArtworks.favorites[i].title}</div>
                             <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${state.allArtworks.products[i].image_id}/full/843,/0/default.jpg`} alt='' />
-                            <button>Remove from favorite</button>
+                            <button type="button" className="btn btn-primary btn-sm">Remove from favorite</button>
                      </div>
                 </motion.div>
             ))
