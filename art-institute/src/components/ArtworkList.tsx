@@ -16,7 +16,7 @@ function ArtworkDetails() {
     const [searchedResults, setSearchedResult] = useState<any>();
     const [favoriteItems, setFavoriteItems] = useState<[]>([]);
     const [textToSearch, setText] = useState<string>('');
-    const [currentPage, setCurrentpage] = useState<number>(4600);
+    const [currentPage, setCurrentpage] = useState<number>(1);
     const navigate = useNavigate()
 
 
