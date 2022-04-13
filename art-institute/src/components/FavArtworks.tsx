@@ -1,21 +1,32 @@
 import { useDispatch , useSelector } from 'react-redux';
-import {useEffect, useState} from 'react'
 import { motion } from "framer-motion"
+import {setFavorite} from '../redux/actions/favoriteActions';
+import { useState,useEffect } from 'react';
 
 function FavArtworks() {
+const [removedList,setRemovedList] = useState()  
 
-// const favorites:any = useSelector((state) => state)
 const state:any = useSelector((state) => state)
 
 const dispatch = useDispatch()
 
 useEffect(() => {
-    // console.log(favorites,'favorites')  
-    console.log(state,'asd') 
-
-},[]);
+  console.log('update')
+},[removedList]);
 
 
+ const removeFromFavorite = (item:any) => {
+        let newArray : any = state.favoriteArtworks.favorites
+            for (var i = 0; i < newArray.length; i++) {
+              if(i == item){
+                console.log('bennevan')
+                newArray.splice(i, 1);
+                console.log(newArray,'removed list')
+                setRemovedList(newArray)
+                dispatch(setFavorite(newArray))
+              }
+            }
+  }
 
 
     return (
@@ -23,13 +34,13 @@ useEffect(() => {
            {
              state.favoriteArtworks ?
              (
-              Object.keys(state.favoriteArtworks.favorites).map((i) => (
-                <motion.div initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:2}} className='artworks-box'>
+              Object.keys(state.favoriteArtworks.favorites).map((item) => (
+                <motion.div key={item} initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:2}} className='artworks-box'>
                       <div>
-                            <div className='art-title' key={i}>{state.favoriteArtworks.favorites[i].title}</div>
-                            <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${state.favoriteArtworks.favorites[i].image_id}/full/843,/0/default.jpg`} alt='' />
+                            <div className='art-title' >{state.favoriteArtworks.favorites[item].title}</div>
+                            <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${state.favoriteArtworks.favorites[item].image_id}/full/843,/0/default.jpg`} alt='' />
                             <div className='fav-button-container'>
-                               <button type="button" className="btn btn-primary btn-sm">Remove from favorites</button>
+                               <button onClick={()=> removeFromFavorite(item)} type="button" className="btn btn-primary btn-sm">Remove from favorites</button>
                             </div>
                      </div>
                  </motion.div>

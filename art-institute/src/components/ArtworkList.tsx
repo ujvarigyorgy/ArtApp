@@ -31,9 +31,6 @@ function ArtworkDetails() {
         .get(`https://api.artic.edu/api/v1/artworks?page=${currentPage}&limit=25`)
         .then((res:any)=>{
             dispatch(setProducts(res.data.data))
-             console.log(products,'products')
-             console.log(res.data,'result')
-
             setLoading(false)
         })
         .catch((err:any) => {
@@ -55,7 +52,6 @@ function ArtworkDetails() {
         const response:any  = await axios
         .get(`https://api.artic.edu/api/v1/artworks/search?${keyword}`)
         .then((res:any)=>{
-            console.log(res.data.data,'search result')
             setSearchedResult(res.data.data)
             setLoading(false)
             setSearched(true)
@@ -83,21 +79,7 @@ function ArtworkDetails() {
       
 
     }
-    // const removeFromFavorite = (item:any) => {
-    //     let newArray : any = [...favoriteItems]
-    //     console.log(item.id,'item')
-    //     if(newArray.includes(item)){
-    //         for (var i = 0; i < newArray.length; i++) {
-    //             if (newArray[i].id === item.id) {
-    //                 console.log(newArray[i],'objjj')
-    //                 console.log(i,'talas')
-    //                 newArray.splice(i, 1);
-    //             }
-    //         }
-    //             dispatch(setFavorite(newArray))
-
-    //     }
-    // }
+   
 
 
   return (
