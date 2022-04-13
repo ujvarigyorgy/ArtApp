@@ -10,7 +10,8 @@ const state:any = useSelector((state) => state)
 const dispatch = useDispatch()
 
 useEffect(() => {
-    // console.log(favorites,'favorites')   
+    // console.log(favorites,'favorites')  
+    console.log(state,'asd') 
 
 },[]);
 
@@ -20,17 +21,28 @@ useEffect(() => {
     return (
       <div>
            {
-               Object.keys(state.allArtworks.favorites).map((i) => (
+             state.favoriteArtworks ?
+             (
+              Object.keys(state.favoriteArtworks.favorites).map((i) => (
                 <motion.div initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:2}} className='artworks-box'>
                       <div>
-                            <div className='art-title' key={i}>{state.allArtworks.favorites[i].title}</div>
-                            <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${state.allArtworks.products[i].image_id}/full/843,/0/default.jpg`} alt='' />
+                            <div className='art-title' key={i}>{state.favoriteArtworks.favorites[i].title}</div>
+                            <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${state.favoriteArtworks.favorites[i].image_id}/full/843,/0/default.jpg`} alt='' />
                             <div className='fav-button-container'>
                                <button type="button" className="btn btn-primary btn-sm">Remove from favorites</button>
                             </div>
                      </div>
-                </motion.div>
-            ))
+                 </motion.div>
+              ))
+             )
+             :
+             (
+                <>
+                Your favorite list is empty
+                </>
+             )
+            
+              
           } 
       </div>
     );

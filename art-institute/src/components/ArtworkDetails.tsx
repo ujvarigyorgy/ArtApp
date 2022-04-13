@@ -47,7 +47,7 @@ function ArtworkList() {
     const addToFavorite = (item:any) => {
         console.log(details,'haaalo')
         // console.log(state.allArtworks.favorites,'faaaav')
-        let newArray : any = state.allArtworks.favorites
+        let newArray : any = state.favoriteArtworks.favorites
         newArray.push(item)
         dispatch(setFavorite(newArray))
         console.log(newArray,'asd')

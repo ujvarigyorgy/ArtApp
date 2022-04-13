@@ -23,6 +23,7 @@ function ArtworkDetails() {
     useEffect(() => {
         getArtist()
     },[currentPage,searchedResults]);
+    
 
     const getArtist = async() => {
         setLoading(true);
@@ -70,11 +71,14 @@ function ArtworkDetails() {
     
 
     const addToFavorite = (item:any) => {
-        let newArray : any = [...favoriteItems]
+        let newArray : any = products.favoriteArtworks.favorites
         if(!newArray.includes(item)){
             newArray.push(item)
             setFavoriteItems(newArray)
             dispatch(setFavorite(newArray))
+        }
+        else{
+            console.log('contains already')
         }
       
 
