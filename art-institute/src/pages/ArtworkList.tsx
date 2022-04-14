@@ -97,13 +97,17 @@ function ArtworkDetails() {
                     :
                     (
                         <div className='navigation-button-container'>
-                         <button disabled={currentPage <= 1} type="button" className="btn btn-secondary btn-sm" onClick={()=> setCurrentpage(currentPage-1)}>Back</button>
-                         <select className="form-select form-select-lg mb-3" aria-label=".form-select-sm example" onChange={(e) =>setCurrentpage(parseInt(e.target.value))}>
+                            <div className='button-container'>
+                                 <button disabled={currentPage <= 1} type="button" className="btn btn-secondary btn-sm" onClick={()=> setCurrentpage(currentPage-1)}>Back</button>
+                            </div>
+                         <select className="form-select form-select-lg sm-3" aria-label=".form-select-sm example" onChange={(e) =>setCurrentpage(parseInt(e.target.value))}>
                             {Array.apply(1, Array(pages)).map(function (x, i) {
                                 return <option key={i}>{i+1 }</option>;
                             })}
                          </select>
-                         <button type="button" className="btn btn-secondary btn-sm" onClick={()=> setCurrentpage(currentPage+1)}>Next</button>
+                         <div className='button-container'>
+                             <button type="button" className="btn btn-secondary btn-sm" onClick={()=> setCurrentpage(currentPage+1)}>Next</button>
+                        </div>
                         </div>
                     )
                 }
