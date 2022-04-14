@@ -1,12 +1,6 @@
 import {Link} from "react-router-dom";
 import { useState,useEffect } from 'react';
 
-
-
-
-
-
-
 const Header = () => {
 
     const [show, setShow] = useState(false);
@@ -23,17 +17,14 @@ const Header = () => {
         }
       }, [lastScrollY]);
 
-  
-
         const controlNavbar = () => {
         if (typeof window !== 'undefined') { 
-            if (window.scrollY > lastScrollY) { // if scroll down hide the navbar
+            if (window.scrollY > lastScrollY) {
             setShow(true); 
-            } else { // if scroll up show the navbar
+            } else {
             setShow(false);  
             }
 
-            // remember current page location to use in the next move
             setLastScrollY(window.scrollY); 
         }
         };

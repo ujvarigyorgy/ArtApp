@@ -16,6 +16,7 @@ function ArtworkDetails() {
     const [searchedResults, setSearchedResult] = useState<any>();
     const [textToSearch, setText] = useState<string>('');
     const [currentPage, setCurrentpage] = useState<number>(1);
+    const [pages, setPages] = useState<number>();
     const navigate = useNavigate()
 
 
@@ -29,6 +30,7 @@ function ArtworkDetails() {
         await axios
         .get(`https://api.artic.edu/api/v1/artworks?page=${currentPage}&limit=25`)
         .then((res:any)=>{
+            setPages(res.data.pagination.total_pages)
             dispatch(setProducts(res.data.data))
             setLoading(false)
         })
@@ -60,8 +62,6 @@ function ArtworkDetails() {
 
     }
 
-    
-
     const addToFavorite = (item:any) => {
         let newArray : any = products.favoriteArtworks.favorites
         if(!newArray.includes(item)){
@@ -75,7 +75,6 @@ function ArtworkDetails() {
 
     }
    
-
 
   return (
       <motion.div initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:2}} className='artwork-list-container'>
@@ -100,6 +99,11 @@ function ArtworkDetails() {
                     (
                         <div className='navigation-button-container'>
                          <button type="button" className="btn btn-secondary btn-sm" onClick={()=> setCurrentpage(currentPage+1)}>Previus</button>
+                         <select className="form-select form-select-lg mb-3" aria-label=".form-select-sm example" onChange={(e) =>setCurrentpage(parseInt(e.target.value))}>
+                            {Array.apply(0, Array(pages)).map(function (x, i) {
+                                return <option key={i}>{i}</option>;
+                            })}
+                         </select>
                          <button type="button" className="btn btn-secondary btn-sm" onClick={()=> setCurrentpage(currentPage+1)}>Next</button>
                         </div>
                     )
