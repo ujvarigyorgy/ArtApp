@@ -94,18 +94,18 @@ function ArtworkDetails() {
             <div>
                 <div className='search-bar-container'>
                     <input className="form-control" placeholder="Search between artworks..." aria-label="Recipient's username" aria-describedby="basic-addon2" onChange={(e)=>setText(e.target.value)} type="text" />
-                    <button type="button" className="btn btn-primary btn-sm" onClick={()=> search(textToSearch)} >Search</button>
+                    <button type="button" className="btn btn-secondary btn-sm" onClick={()=> search(textToSearch)} >Search</button>
                 </div>
                 {
                     searchedItems ?
                     (
-                        <button type="button" className="btn btn-primary btn-sm" onClick={()=> setSearched(false)}>Back</button>
+                        <button type="button" className="btn btn-secondary btn-sm" onClick={()=> setSearched(false)}>Back</button>
                     )
                     :
                     (
                         <div className='navigation-button-container'>
-                         <button type="button" className="btn btn-primary btn-sm" onClick={()=> setCurrentpage(currentPage+1)}>Previus</button>
-                         <button type="button" className="btn btn-primary btn-sm" onClick={()=> setCurrentpage(currentPage+1)}>Next</button>
+                         <button type="button" className="btn btn-secondary btn-sm" onClick={()=> setCurrentpage(currentPage+1)}>Previus</button>
+                         <button type="button" className="btn btn-secondary btn-sm" onClick={()=> setCurrentpage(currentPage+1)}>Next</button>
                         </div>
                     )
                 }
@@ -120,7 +120,7 @@ function ArtworkDetails() {
                                         <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${products.allArtworks.products[i].image_id}/full/843,/0/default.jpg`} alt='' />
                                     </div>
                                     <div className='fav-button-container'>
-                                         <button type="button" className="btn btn-primary btn-sm">Add to favorit</button>
+                                         <button type="button" className="btn btn-secondary btn-sm">Add to favorit</button>
                                     </div>
                                 </motion.div>
                             ))
@@ -137,7 +137,7 @@ function ArtworkDetails() {
                                             <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${products.allArtworks.products[i].image_id}/full/843,/0/default.jpg`} alt='' />
                                         </div>
                                         <div className='fav-button-container'>
-                                            <button type="button" className="btn btn-primary btn-sm" onClick={()=> addToFavorite(products.allArtworks.products[i])}>Add to favorites</button>
+                                            <button type="button" className="btn btn-secondary btn-sm" onClick={()=> addToFavorite(products.allArtworks.products[i])}>Add to favorites</button>
                                         </div>
                                     </div>
                                 ))

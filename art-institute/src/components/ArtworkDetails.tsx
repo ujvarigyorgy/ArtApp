@@ -14,6 +14,8 @@ function ArtworkList() {
     const [details,setDetails] = useState<any>(null)
     const [imgid,setImgId] = useState<string>('')
     const [img,setImg] = useState<string>('')
+    const [isShown,setShown] = useState<boolean>(false)
+
 
     
     
@@ -27,7 +29,6 @@ function ArtworkList() {
         const response:any  = await axios 
         .get(`https://api.artic.edu/api/v1/artworks/${location.state}`)
         .then((res:any)=>{
-            console.log(res.data.data,'response')
             setDetails(res.data.data)
             setImgId(res.data.data.image_id)
                 axios .get(`https://www.artic.edu/iiif/2/${res.data.data.image_id}/full/843,/0/default.jpg`)
@@ -45,11 +46,10 @@ function ArtworkList() {
     }
 
     const addToFavorite = (item:any) => {
-        console.log(details,'haaalo')
-        // console.log(state.allArtworks.favorites,'faaaav')
         let newArray : any = state.favoriteArtworks.favorites
         newArray.push(item)
         dispatch(setFavorite(newArray))
+        setShown(true)
         console.log(newArray,'asd')
     }
 
@@ -70,7 +70,7 @@ function ArtworkList() {
                         <div>{details.date_display}</div>
                         <div>Department: {details.department_title}</div>
                         <div>Place of Origin : {details.place_of_origin}</div>
-                        <button type="button" className="btn btn-primary btn-sm" onClick={()=> addToFavorite(details)}>Add to favorites</button>
+                        <button type="button" className="btn btn-secondary btn-sm" onClick={()=> addToFavorite(details)}>Add to favorites</button>
                     </div>
                 </motion.div>
             </motion.div>
