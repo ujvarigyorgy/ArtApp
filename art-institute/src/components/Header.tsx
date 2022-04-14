@@ -32,8 +32,11 @@ const Header = () => {
 
     return (
         <div className={`active ${show && 'hidden'}`}>
-            <Link style={{ textDecoration: 'none',color:"black" }} to="/favorite">Favorite Artworks</Link>
-            <Link style={{ textDecoration: 'none', color:"black" }} to="/">Home</Link>
+            <div className="nav-title">Art Institute of Chicago API</div>
+            <div className="nav-links">
+                <Link style={{ textDecoration: 'none', color:"black" }} to="/">Home</Link>
+                <Link style={{ textDecoration: 'none',color:"black" }} to="/favorite">Favorite Artworks</Link>
+            </div>
         </div>
     );
   };

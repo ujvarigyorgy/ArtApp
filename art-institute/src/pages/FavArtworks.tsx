@@ -10,9 +10,7 @@ toast.configure()
 
 function FavArtworks() {
 const [removedList,setRemovedList] = useState()  
-
 const state:any = useSelector((state) => state)
-
 const dispatch = useDispatch()
 
 

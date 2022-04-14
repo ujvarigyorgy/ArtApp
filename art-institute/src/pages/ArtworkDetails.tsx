@@ -11,10 +11,8 @@ toast.configure()
 
 function ArtworkList() {
     const dispatch = useDispatch()
-
     const state:any = useSelector((state) => state)
     const location = useLocation()
-    
     const [details,setDetails] = useState<any>(null)
     const [imgid,setImgId] = useState<string>('')
 

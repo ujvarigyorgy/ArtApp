@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import { productReducer } from "./productReducer";
+import { artworkReducer } from "./artworkReducer";
 import { favoriteReducer } from "./favoriteReducer";
 
 
 const reducers = combineReducers({
-    allArtworks:productReducer,
+    allArtworks:artworkReducer,
     favoriteArtworks:favoriteReducer,
 })
 
