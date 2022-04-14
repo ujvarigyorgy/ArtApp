@@ -6,9 +6,6 @@ import FavArtworks from './components/FavArtworks';
 import Header from './components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { motion } from "framer-motion"
-
-
 import {
   BrowserRouter,
   Routes,

@@ -6,7 +6,10 @@ import {setFavorite} from '../redux/actions/favoriteActions';
 import { useNavigate} from "react-router-dom";
 import Loader from './Loader'
 import { motion } from "framer-motion"
+import {toast} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
+toast.configure()
 
 function ArtworkDetails() {
     const dispatch = useDispatch()
@@ -23,7 +26,6 @@ function ArtworkDetails() {
     useEffect(() => {
         getArtist()
     },[currentPage,searchedResults]);
-    
 
     const getArtist = async() => {
         setLoading(true);
@@ -67,6 +69,7 @@ function ArtworkDetails() {
         if(!newArray.includes(item)){
             newArray.push(item)
             dispatch(setFavorite(newArray))
+            toast.info("Added to favorites",{position:toast.POSITION.TOP_CENTER, hideProgressBar:true,autoClose:2000})
         }
         else{
             console.log('contains already')
@@ -98,7 +101,7 @@ function ArtworkDetails() {
                     :
                     (
                         <div className='navigation-button-container'>
-                         <button type="button" className="btn btn-secondary btn-sm" onClick={()=> setCurrentpage(currentPage+1)}>Previus</button>
+                         <button type="button" className="btn btn-secondary btn-sm" onClick={()=> setCurrentpage(currentPage+1)}>Back</button>
                          <select className="form-select form-select-lg mb-3" aria-label=".form-select-sm example" onChange={(e) =>setCurrentpage(parseInt(e.target.value))}>
                             {Array.apply(0, Array(pages)).map(function (x, i) {
                                 return <option key={i}>{i}</option>;
@@ -128,6 +131,7 @@ function ArtworkDetails() {
                          (
                              products && !searchedItems &&
                              <>
+                             <div className='page-nr'>Page number:{currentPage}</div>
                              {
                                   Object.keys(products.allArtworks.products).map((i) =>(
                                     <div className='image-preview' key={i}>

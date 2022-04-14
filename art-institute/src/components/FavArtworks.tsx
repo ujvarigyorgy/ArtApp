@@ -2,6 +2,11 @@ import { useDispatch , useSelector } from 'react-redux';
 import { motion } from "framer-motion"
 import {setFavorite} from '../redux/actions/favoriteActions';
 import { useState,useEffect } from 'react';
+import {toast} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
+toast.configure()
+
 
 function FavArtworks() {
 const [removedList,setRemovedList] = useState()  
@@ -22,6 +27,7 @@ useEffect(() => {
                 newArray.splice(i, 1);
                 setRemovedList(newArray)
                 dispatch(setFavorite(newArray))
+                toast.warn("Removed from favorites",{position:toast.POSITION.TOP_CENTER, hideProgressBar:true,autoClose:2000})
               }
             }
   }
@@ -39,7 +45,7 @@ useEffect(() => {
               :
              (
               Object.keys(state.favoriteArtworks.favorites).map((item) => (
-                <motion.div key={item} initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:2}} className='artworks-box'>
+                <motion.div key={item} initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:2}} className='fav-artworks-box'>
                       <div>
                             <div className='art-title' >{state.favoriteArtworks.favorites[item].title}</div>
                             <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${state.favoriteArtworks.favorites[item].image_id}/full/843,/0/default.jpg`} alt='' />

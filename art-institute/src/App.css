@@ -3,7 +3,7 @@
   height: 300px;
 }
 .loading-wrapper{
-  margin-top: 50%;
+  margin-top: 80%;
   width: 100px;
   height: 100px;
 }
@@ -21,6 +21,16 @@
   border-top-color: #36f372;
   border-bottom-color:#fff ;
   animation-duration: 2.5s;
+}
+.artwork-list-container{
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.page-nr{
+  font-size: 20px-;
 }
 .navigation-button-container{
   position:relative;
@@ -66,6 +76,9 @@
   flex-direction: column;
   margin: 15px 0;
 }
+.fav-artworks-box{
+  padding: 40px;
+}
 .nav-menu{
   display: flex;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
@@ -79,6 +92,7 @@
   width: 100%;
 }
 .detail-container{
+  padding: 50px;
   display: flex;
   flex-direction: row;
   gap:50px;
@@ -99,7 +113,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: center;
 }
 .artworks-box{
   margin: 20px;

@@ -4,8 +4,10 @@ import { useDispatch , useSelector } from 'react-redux';
 import axios from 'axios';
 import {setFavorite} from '../redux/actions/favoriteActions';
 import { motion } from "framer-motion"
+import {toast} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
-
+toast.configure()
 
 function ArtworkList() {
     const dispatch = useDispatch()
@@ -37,6 +39,7 @@ function ArtworkList() {
         let newArray : any = state.favoriteArtworks.favorites
         newArray.push(item)
         dispatch(setFavorite(newArray))
+        toast.info("Added to favorites",{position:toast.POSITION.TOP_CENTER, hideProgressBar:true,autoClose:2000})
     }
 
 
@@ -46,11 +49,11 @@ function ArtworkList() {
             details &&
             <motion.div className='detail-container' >
                 <motion.div initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:1}}>
-                    <div className='art-title'>{details.artist_display}</div>
                     <img src={`https://www.artic.edu/iiif/2/${imgid}/full/843,/0/default.jpg`} alt='' />
                 </motion.div>
                 <motion.div className='details-info-container' initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:3}}>
                     <div>
+                        <div className='art-title'>{details.artist_display}</div>
                         <div>{details.credit_line}</div>
                         <div>{details.date_display}</div>
                         <div>Department: {details.department_title}</div>
