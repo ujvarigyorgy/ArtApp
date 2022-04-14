@@ -1,10 +1,10 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react'
 import { useDispatch , useSelector } from 'react-redux';
-import {setProducts} from '../redux/actions/productActions';
+import {setArtworks} from '../redux/actions/artworkActions';
 import {setFavorite} from '../redux/actions/favoriteActions';
 import { useNavigate} from "react-router-dom";
-import Loader from './Loader'
+import Loader from '../components/Loader'
 import { motion } from "framer-motion"
 import {toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
@@ -13,7 +13,7 @@ toast.configure()
 
 function ArtworkDetails() {
     const dispatch = useDispatch()
-    const products:any = useSelector((state) => state)
+    const artworks:any = useSelector((state) => state)
     const [loading, setLoading] = useState<boolean>(false);
     const [searchedItems, setSearched] = useState<boolean>(false);
     const [searchedResults, setSearchedResult] = useState<any>();
@@ -33,7 +33,7 @@ function ArtworkDetails() {
         .get(`https://api.artic.edu/api/v1/artworks?page=${currentPage}&limit=25`)
         .then((res:any)=>{
             setPages(res.data.pagination.total_pages)
-            dispatch(setProducts(res.data.data))
+            dispatch(setArtworks(res.data.data))
             setLoading(false)
         })
         .catch((err:any) => {
@@ -65,7 +65,7 @@ function ArtworkDetails() {
     }
 
     const addToFavorite = (item:any) => {
-        let newArray : any = products.favoriteArtworks.favorites
+        let newArray : any = artworks.favoriteArtworks.favorites
         if(!newArray.includes(item)){
             newArray.push(item)
             dispatch(setFavorite(newArray))
@@ -129,18 +129,18 @@ function ArtworkDetails() {
                          )
                          :
                          (
-                             products && !searchedItems &&
+                             artworks && !searchedItems &&
                              <>
                              <div className='page-nr'>Page number:{currentPage}</div>
                              {
-                                  Object.keys(products.allArtworks.products).map((i) =>(
+                                  Object.keys(artworks.allArtworks.artworks).map((i) =>(
                                     <div className='image-preview' key={i}>
-                                        <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
-                                            <div className='art-title'>{products.allArtworks.products[i].title}</div>
-                                            <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${products.allArtworks.products[i].image_id}/full/843,/0/default.jpg`} alt='' />
+                                        <div onClick={() => goToDetails(artworks.allArtworks.artworks[i].id)}>
+                                            <div className='art-title'>{artworks.allArtworks.artworks[i].title}</div>
+                                            <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${artworks.allArtworks.artworks[i].image_id}/full/843,/0/default.jpg`} alt='' />
                                         </div>
                                         <div className='fav-button-container'>
-                                            <button type="button" className="btn btn-secondary btn-sm" onClick={()=> addToFavorite(products.allArtworks.products[i])}>Add to favorites</button>
+                                            <button type="button" className="btn btn-secondary btn-sm" onClick={()=> addToFavorite(artworks.allArtworks.artworks[i])}>Add to favorites</button>
                                         </div>
                                     </div>
                                 ))

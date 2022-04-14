@@ -1,8 +1,8 @@
 
 import './App.css';
-import ArtworkDetails from './components/ArtworkDetails';
-import ArtworkList from './components/ArtworkList';
-import FavArtworks from './components/FavArtworks';
+import ArtworkDetails from './pages/ArtworkDetails';
+import ArtworkList from './pages/ArtworkList';
+import FavArtworks from './pages/FavArtworks';
 import Header from './components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
