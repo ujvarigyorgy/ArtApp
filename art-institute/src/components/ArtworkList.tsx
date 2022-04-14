@@ -14,7 +14,6 @@ function ArtworkDetails() {
     const [loading, setLoading] = useState<boolean>(false);
     const [searchedItems, setSearched] = useState<boolean>(false);
     const [searchedResults, setSearchedResult] = useState<any>();
-    const [favoriteItems, setFavoriteItems] = useState<[]>([]);
     const [textToSearch, setText] = useState<string>('');
     const [currentPage, setCurrentpage] = useState<number>(1);
     const navigate = useNavigate()
@@ -27,7 +26,7 @@ function ArtworkDetails() {
 
     const getArtist = async() => {
         setLoading(true);
-        const response:any  = await axios
+        await axios
         .get(`https://api.artic.edu/api/v1/artworks?page=${currentPage}&limit=25`)
         .then((res:any)=>{
             dispatch(setProducts(res.data.data))
@@ -43,15 +42,12 @@ function ArtworkDetails() {
         navigate(`/details/:${id}`,{state:id})
     }
 
-    const goToFavorite = () => {
-        navigate('/favorite')
-    }
-
     const search = async (keyword:string) => {
         setLoading(true);
-        const response:any  = await axios
-        .get(`https://api.artic.edu/api/v1/artworks/search?${keyword}`)
+        await axios
+        .get(`https://api.artic.edu/api/v1/artworks/search?q=${keyword}`)
         .then((res:any)=>{
+            console.log(res,'respijes')
             setSearchedResult(res.data.data)
             setLoading(false)
             setSearched(true)
@@ -70,7 +66,6 @@ function ArtworkDetails() {
         let newArray : any = products.favoriteArtworks.favorites
         if(!newArray.includes(item)){
             newArray.push(item)
-            setFavoriteItems(newArray)
             dispatch(setFavorite(newArray))
         }
         else{
@@ -113,14 +108,14 @@ function ArtworkDetails() {
                     { 
                          searchedItems ?
                          (
-                            Object.keys(searchedResults).map((i) => (
-                                <motion.div initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:2}}  key={i} className='artworks-box'>
-                                    <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
-                                        <div className='art-title' key={i}>{products.allArtworks.products[i].title}</div>
-                                        <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${products.allArtworks.products[i].image_id}/full/843,/0/default.jpg`} alt='' />
+                            searchedResults.map((item:any) => (
+                                <motion.div initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:2}}  key={item} className='artworks-box'>
+                                    <div onClick={() => goToDetails(item.id)}>
+                                        <div className='art-title' key={item}>{item.title}</div>
+                                        <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${item.id}/full/843,/0/default.jpg`} alt='' />
                                     </div>
                                     <div className='fav-button-container'>
-                                         <button type="button" className="btn btn-secondary btn-sm">Add to favorit</button>
+                                         <button type="button" onClick={()=> addToFavorite(item)} className="btn btn-secondary btn-sm">Add to favorite</button>
                                     </div>
                                 </motion.div>
                             ))
@@ -133,7 +128,7 @@ function ArtworkDetails() {
                                   Object.keys(products.allArtworks.products).map((i) =>(
                                     <div className='image-preview' key={i}>
                                         <div onClick={() => goToDetails(products.allArtworks.products[i].id)}>
-                                            <div className='art-title' key={i}>{products.allArtworks.products[i].title}</div>
+                                            <div className='art-title'>{products.allArtworks.products[i].title}</div>
                                             <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${products.allArtworks.products[i].image_id}/full/843,/0/default.jpg`} alt='' />
                                         </div>
                                         <div className='fav-button-container'>

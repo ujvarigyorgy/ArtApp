@@ -8,17 +8,13 @@ import { motion } from "framer-motion"
 
 
 function ArtworkList() {
+    const dispatch = useDispatch()
+
     const state:any = useSelector((state) => state)
     const location = useLocation()
-    const dispatch = useDispatch()
+    
     const [details,setDetails] = useState<any>(null)
     const [imgid,setImgId] = useState<string>('')
-    const [img,setImg] = useState<string>('')
-    const [isShown,setShown] = useState<boolean>(false)
-
-
-    
-    
 
     useEffect(() => {
         getDetails()
@@ -26,19 +22,11 @@ function ArtworkList() {
 
 
     const getDetails = async() => {
-        const response:any  = await axios 
+        await axios 
         .get(`https://api.artic.edu/api/v1/artworks/${location.state}`)
         .then((res:any)=>{
             setDetails(res.data.data)
             setImgId(res.data.data.image_id)
-                axios .get(`https://www.artic.edu/iiif/2/${res.data.data.image_id}/full/843,/0/default.jpg`)
-                .then((res:any)=>{
-                    setImg(res.data)
-                })
-                .catch((err:any) => {
-                    console.log(err,'error')
-                })
-            
         })
         .catch((err:any) => {
             console.log(err,'error')
@@ -49,10 +37,7 @@ function ArtworkList() {
         let newArray : any = state.favoriteArtworks.favorites
         newArray.push(item)
         dispatch(setFavorite(newArray))
-        setShown(true)
-        console.log(newArray,'asd')
     }
-
 
 
   return (
