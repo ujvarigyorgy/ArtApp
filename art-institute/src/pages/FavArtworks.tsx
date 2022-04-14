@@ -15,6 +15,7 @@ const dispatch = useDispatch()
 
 
 useEffect(() => {
+  console.log(state.favoriteArtworks.favorites,'favorites')
 },[removedList]);
 
 
@@ -34,16 +35,14 @@ useEffect(() => {
     return (
       <div>
            {
-             !state.favoriteArtworks ?
+             state.favoriteArtworks.favorites.length < 1   ?
              (
-              <div>
-                 Your favorite list is empty
-              </div>
+              <div className='empty-list'>Your favorite list is empty</div>
               )
               :
              (
-              Object.keys(state.favoriteArtworks.favorites).map((item) => (
-                <motion.div key={item} initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:2}} className='fav-artworks-box'>
+                 Object.keys(state.favoriteArtworks.favorites).map((item) => (
+                 <motion.div key={item} initial={{opacity:0}} animate={{ opacity:  1 }} transition={{duration:2}} className='fav-artworks-box'>
                       <div>
                             <div className='art-title' >{state.favoriteArtworks.favorites[item].title}</div>
                             <img className='thumbnail-img' src={`https://www.artic.edu/iiif/2/${state.favoriteArtworks.favorites[item].image_id}/full/843,/0/default.jpg`} alt='' />
@@ -52,7 +51,7 @@ useEffect(() => {
                             </div>
                      </div>
                  </motion.div>
-              ))
+                ))
              )
           } 
       </div>

@@ -135,7 +135,6 @@
   position: fixed;
   top: -80px;
   transition: 0.3s linear;
-
 }
 .nav-title{
   font-size: 30px;
@@ -145,4 +144,9 @@
   display: flex;
   flex-direction: row;
   gap:50px;
+}
+.empty-list{
+  margin-top: 80%;
+  font-size: 40px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
